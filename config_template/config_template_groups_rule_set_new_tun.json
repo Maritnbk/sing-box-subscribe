@@ -340,7 +340,14 @@
         "format": "binary",
         "url": "https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-jd.srs",
         "download_detour": "direct"
-      },	  
+      },
+      {
+        "tag": "geosite-instagram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/instagram.srs",
+        "download_detour": "direct"
+      },	  	    
       {
         "tag": "geosite-facebook",
         "type": "remote",
