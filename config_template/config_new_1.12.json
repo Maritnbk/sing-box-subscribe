@@ -245,7 +245,7 @@
         "tag": "AWAvenue-Ads",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
+        "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
         "download_detour": "direct"
       },
       {
