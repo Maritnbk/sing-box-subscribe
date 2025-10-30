@@ -217,56 +217,61 @@
           "geosite-cn",
           "geosite-alibaba",
           "geosite-jd"		  
-        ],
+		]，
         "outbound": "direct"
-      },
+      }，
       {
         "rule_set": [
           "geoip-apple",
-          "geosite-apple",
+          "geosite-apple"，
           "geosite-amazon"
-        ],
+        ]，
         "outbound": "Apple"
       },
       {
         "rule_set": "geosite-microsoft",
         "outbound": "Microsoft"
       }
-    ],
+    ]，
     "rule_set": [
       {
         "tag": "geosite-category-ads-all",
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs",
+        "update_interval": "24h"，
         "download_detour": "direct"
-      },
+      }，
       {
         "tag": "AWAvenue-Ads",
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/Maritnbk/Ads-Rule-Singbox/refs/heads/main/rule/AWAvenue-Ads-Rule-Singbox.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
-      },
+      }，
       {
         "tag": "geosite-openai",
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/OpenAI.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
-      },
+      }，
       {
         "tag": "geosite-youtube",
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
-      },
+      }，
       {
         "tag": "geoip-google",
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -274,6 +279,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -281,6 +287,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -288,6 +295,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -295,6 +303,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -302,6 +311,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/twitter.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -309,6 +319,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitter.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -316,6 +327,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/facebook.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -323,6 +335,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/facebook.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
 	  {
@@ -330,6 +343,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/instagram.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -337,6 +351,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bilibili.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -344,6 +359,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/docker.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -351,6 +367,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/javdb.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -358,6 +375,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/alibaba.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -365,6 +383,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/jd.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -372,6 +391,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bahamut.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -379,6 +399,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/spotify.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -386,6 +407,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -393,6 +415,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -400,6 +423,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -407,6 +431,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/disney.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -414,6 +439,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geoip/apple.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -421,6 +447,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -428,6 +455,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/amazon.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -435,6 +463,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -442,6 +471,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-games.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -449,6 +479,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/dmm.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -456,6 +487,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/hbo.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -463,6 +495,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/primevideo.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -470,6 +503,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -477,6 +511,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       },
       {
@@ -484,6 +519,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+        "update_interval": "24h",
         "download_detour": "direct"
       }
     ]
