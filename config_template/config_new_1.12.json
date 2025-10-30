@@ -60,12 +60,12 @@
         "rule_set": "AWAvenue-Ads",
         "action": "reject"
       }
-    ],
+    ]，
     "final": "proxy-dns",
     "disable_cache": true,
     "independent_cache": false,
     "strategy": "prefer_ipv4"
-  },
+  }，
   "inbounds": [
     {
       "tag": "tun-in",
@@ -74,7 +74,7 @@
       "address": [
         "172.18.0.0/30",
         "fdfe:dcba:9876::0/126"
-      ],
+      ]，
       "mtu": 9000,
       "stack": "system",
       "auto_route": true,
@@ -86,24 +86,24 @@
           "server_port": 7890
         }
       }
-    },
+    }，
     {
       "tag": "mixed-in",
       "type": "mixed",
       "listen": "127.0.0.1",
       "listen_port": 7890
     }
-  ],
+  ]，
   "outbounds": [
     {
       "tag": "Proxy",
       "type": "selector",
       "outbounds": [
-        "auto",
+        "auto"，
         "direct",
         "{all}"
       ]
-    },
+    }，
     {
       "tag": "Microsoft",
       "type": "selector",
@@ -128,11 +128,11 @@
       ],
       "filter":[
 	    {"action":"exclude","keywords":["网站|地址|剩余|过期|时间|有效"]}
-      ],
+      ]，
       "url": "http://cp.cloudflare.com/",
       "interval": "10m",
       "tolerance": 50
-    },
+    }，
     {
       "type": "direct",
       "tag": "direct"
@@ -145,15 +145,15 @@
     "rules": [
       {
         "inbound": [
-          "tun-in",
+          "tun-in"，
           "mixed-in"
         ],
         "action": "sniff"
-      },
+      }，
       {
         "protocol": "dns",
         "action": "hijack-dns"
-      },
+      }，
       {
         "rule_set": "geosite-category-ads-all",
         "action": "reject"
@@ -161,73 +161,73 @@
       {
         "clash_mode": "direct",
         "outbound": "direct"
-      },
+      }，
       {
         "clash_mode": "global",
         "outbound": "Proxy"
-      },
+      }，
       {
         "domain": [
-          "board.zash.run.place",
-          "clash.razord.top",
+          "board.zash.run.place"，
+          "clash.razord.top"，
           "yacd.metacubex.one",
           "yacd.haishan.me",
           "d.metacubex.one"
-        ],
+        ]，
         "outbound": "direct"
-      },
+      }，
       {
         "ip_is_private": true,
         "outbound": "direct"
-      },
+      }，
       {
         "rule_set": [
-          "geosite-youtube",
-          "geoip-google",
-          "geosite-google",
-          "geosite-github",
-          "geosite-docker",
-          "geosite-openai",
+          "geosite-youtube"，
+          "geoip-google"，
+          "geosite-google"，
+          "geosite-github"，
+          "geosite-docker"，
+          "geosite-openai"，
           "geoip-telegram",
-          "geosite-telegram",
-          "geoip-twitter",
+          "geosite-telegram"，
+          "geoip-twitter"，
           "geosite-twitter",
-          "geoip-facebook",
-          "geosite-facebook",
-          "geosite-instagram",
+          "geoip-facebook"，
+          "geosite-facebook"，
+          "geosite-instagram"，
           "geosite-bahamut",
-          "geosite-spotify",
-          "geosite-tiktok",
-          "geoip-netflix",
-          "geosite-netflix",
+          "geosite-spotify"，
+          "geosite-tiktok"，
+          "geoip-netflix"，
+          "geosite-netflix"，
           "geosite-disney",
-          "geosite-category-games",
-          "geosite-dmm",
-          "geosite-hbo",
-          "geosite-primevideo",
+          "geosite-category-games"，
+          "geosite-dmm"，
+          "geosite-hbo"，
+          "geosite-primevideo"，
           "geosite-javdb",
           "geosite-geolocation-!cn"
-        ],
+        ]，
         "outbound": "Proxy"
-      },
+      }，
       {
         "rule_set": [
-          "geosite-bilibili",
-          "geoip-cn",
+          "geosite-bilibili"，
+          "geoip-cn"，
           "geosite-cn",
-          "geosite-alibaba",
+          "geosite-alibaba"，
           "geosite-jd"		  
 		]，
         "outbound": "direct"
       }，
       {
         "rule_set": [
-          "geoip-apple",
+          "geoip-apple"，
           "geosite-apple"，
           "geosite-amazon"
         ]，
         "outbound": "Apple"
-      },
+      }，
       {
         "rule_set": "geosite-microsoft",
         "outbound": "Microsoft"
@@ -239,7 +239,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs",
-        "update_interval": "24h"，
+        "update_interval": "24h",
         "download_detour": "direct"
       }，
       {
@@ -273,7 +273,7 @@
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs",
         "update_interval": "24h",
         "download_detour": "direct"
-      },
+      }，
       {
         "tag": "geosite-google",
         "type": "remote",
@@ -289,7 +289,7 @@
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs",
         "update_interval": "24h",
         "download_detour": "direct"
-      },
+      }，
       {
         "tag": "geoip-telegram",
         "type": "remote",
