@@ -17,7 +17,8 @@
             font-family: Arial, sans-serif; /* 可选的字体 */
             background-color: #f2f2f2;
         }
-        。container {
+
+.container {
             display: flex;
             flex-direction: row; /* 水平排列 */
             align-items: center; /* 水平居中对齐 */
@@ -28,7 +29,7 @@
             padding: 10px;
         }
         */
-        。right-box {
+        .right-box {
             flex: 2;
             padding: 50px;
             max-width: 100%; /* 设置最大宽度为100% */
@@ -36,13 +37,13 @@
         }
         /* 媒体查询：屏幕宽度小于768px时应用下面的样式 */
         @media screen and (max-width: 768px) {
-            .container {
+            。container {
                 flex-direction: column; /* 垂直排列 */
             }
-            .right-box {
+            。right-box {
                 width: 100%; /* 平分屏幕宽度 */
             }
-            .config-content {
+            。config-content {
                 white-space: normal; /* 在小屏幕下允许内容换行 */
                 margin-left: 20px; /* 与左边隔开20px，根据需要调整距离 */
                 margin-right: 20px; /* 与右边隔开20px，根据需要调整距离 */
@@ -57,7 +58,7 @@
             <form id="temp-json-form" method="POST" action="/edit_temp_json">
                 <textarea name="temp_json_data" rows="10" cols="40" style="width: 450px; height: 450px;">{{ temp_json_data | default('') }}</textarea>
                 <br>
-                <input type="submit" value="save">
+                <input 输入="submit" value="save">
             </form>
             <div class="form-container" style="display: flex; align-items: center;">
                 <form method="POST" action="/generate_config" style="display: flex; align-items: center;">
