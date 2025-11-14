@@ -16,7 +16,8 @@
             margin: 0; /* 去掉默认的页面边距 */
             font-family: Arial, sans-serif; /* 可选的字体 */
             background-color: #f2f2f2;
-        }.container {
+        }
+        .container {
             display: flex;
             flex-direction: row; /* 水平排列 */
             align-items: center; /* 水平居中对齐 */
@@ -26,13 +27,14 @@
             flex: 1;
             padding: 10px;
         }
-        */。right-box {
+        */       
+          .right-box {
             flex: 2;
             padding: 50px;
             max-width: 100%; /* 设置最大宽度为100% */
             box-sizing: border-box; /* 让padding不影响最大宽度 */
         }
-        /* 媒体查询：屏幕宽度小于768px时应用下面的样式 */
+        /* 媒体查询:屏幕宽度小于768px时应用下面的样式 */
         @media screen and (max-width: 768px) {
             .container {
                 flex-direction: column; /* 垂直排列 */
@@ -42,8 +44,8 @@
             }
             .config-content {
                 white-space: normal; /* 在小屏幕下允许内容换行 */
-                margin-left: 20px; /* 与左边隔开20px，根据需要调整距离 */
-                margin-right: 20px; /* 与右边隔开20px，根据需要调整距离 */
+                margin-left: 20px; /* 与左边隔开20px,根据需要调整距离 */
+                margin-right: 20px; /* 与右边隔开20px,根据需要调整距离 */
             }
         }
     </style>
@@ -110,14 +112,14 @@
             isEnglish = !isEnglish;
             const elementsToTranslate = document.querySelectorAll('[data-translate]');
 
-            elementsToTranslate.forEach(element => {
-                const key = element.getAttribute('data-translate');
+            elementsToTranslate。forEach(element => {
+                const key = element。getAttribute('data-translate');
                 const originalColor = element.getAttribute('data-color');
                 const originalLink = element.getAttribute('data-link');
 
                 if (isEnglish && languageData[key]) {
-                    if (element.tagName === 'A') {
-                        element.href = languageData[key];
+                    if (element。tagName === 'A') {
+                        element。href = languageData[key];
                     } else {
                         // 处理 <span> 元素
                         const spanElement = element.querySelector('span');
@@ -131,11 +133,11 @@
                         }
                     }
                 } else {
-                    if (element.tagName === 'A') {
-                        element.href = originalLink;
+                    if (element。tagName === 'A') {
+                        element。href = originalLink;
                     } else {
-                    // 如果需要，可以添加其他语言的支持
-                        window.location.reload();
+                    // 如果需要,可以添加其他语言的支持
+                        window。location。reload();
                     }
                 }
             });
