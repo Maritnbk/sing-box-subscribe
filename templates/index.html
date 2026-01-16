@@ -25,14 +25,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://www.bing.com/th?id=OHR.');
+            background-image: url('https://api.bimg.cc/random');
             background-size: cover;
             background-position: center;
-            filter: blur(25px);
+            filter: blur(50px);
             z-index: -1;
         }
         
-        。container {
+        .container {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -59,7 +59,7 @@
             border: 1px solid #ccc;
         }
         
-        select， input[type="submit"] {
+        select, input[type="submit"] {
             padding: 8px 12px;
             margin: 5px;
             border-radius: 4px;
@@ -127,25 +127,20 @@
         </div>
     </div>
     <script>
-        // 获取Bing每日图片URL并设置为背景
-        async function setBingBackground() {
+        // 获取随机背景图片并设置为背景
+        async function setBackground() {
             try {
-                // Bing API获取每日壁纸
-                const response = await fetch('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US');
-                const data = await response.json();
-                const imageUrl = 'https://www.bing.com' + data.images[0].url;
-                
-                // 设置背景
-                document.body.style.backgroundImage = `url('${imageUrl}')`;
+                // 设置背景图片
+                document.body.style.backgroundImage = `url('https://api.bimg.cc/random')`;
             } catch (error) {
-                console.error('无法获取Bing背景图片:', error);
+                console.error('无法获取背景图片:', error);
                 // 如果获取失败，使用默认背景
                 document.body.style.backgroundColor = '#f2f2f2';
             }
         }
 
         // 页面加载完成后设置背景
-        window.onload = setBingBackground;
+        window.onload = setBackground;
 
         const initialTempJsonData = '{"subscribes":[{"url":"URL","tag":"tag_1","enabled":true,"emoji":1,"subgroup":"","prefix":"","User-Agent":"v2rayng"},{"url":"URL","tag":"tag_2","enabled":false,"emoji":0,"subgroup":"命名/named","prefix":"❤️","User-Agent":"clashmeta"}],"auto_set_outbounds_dns":{"proxy":"","direct":""},"save_config_path":"./config.json","auto_backup":false,"exclude_protocol":"ssr","config_template":"","Only-nodes":false}';
         let tempJsonData = initialTempJsonData;
@@ -175,6 +170,3 @@
     {% endwith %}
 </body>
 </html>
-
-
-
