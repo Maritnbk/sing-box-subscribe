@@ -1,115 +1,172 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>弹窗示例</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/Toperlock/sing-box-subscribe/main/public/favicon.ico" type="image/x-icon">
+    <title>生成sing-box配置</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            /* 为body添加一个最小高度以便滚动，测试全屏覆盖 */
-            min-height: 150vh; 
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
         }
-
-        /* 遮罩层和模糊背景 */
-        .overlay {
-            position: fixed; /* 固定定位，覆盖整个视口 */
+        
+        body::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5); /* 半透明白色遮罩 */
-            backdrop-filter: blur(10px); /* 应用高斯模糊效果 */
-            -webkit-backdrop-filter: blur(10px); /* Safari兼容 */
-            z-index: 998; /* 确保在body上，但在弹窗下 */
-            display: none; /* 默认隐藏 */
+            width: 100%;
+            height: 100%;
+            background-image: url('https://api.bimg.cc/random');
+            background-size: cover;
+            background-position: center;
+            filter: blur(50px);
+            z-index: -1;
         }
-
-        /* 弹窗主体 */
-        .popup {
-            position: fixed; /* 固定定位，相对于视口 */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 999; /* 确保在遮罩层之上 */
-            display: none; /* 默认隐藏 */
-        }
-
-        .popup-header {
-            padding: 15px 20px;
-            border-bottom: 1px solid #eee;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .popup-body {
+        
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.7);
             padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
-
-        .popup-footer {
-            padding: 10px 20px 15px;
-            text-align: right;
+        
+        .right-box {
+            flex: 2;
+            padding: 20px;
+            max-width: 100%;
+            box-sizing: border-box;
         }
-
-        button {
-            padding: 8px 16px;
-            margin-left: 10px;
+        
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            font-family: monospace;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        select, input[type="submit"] {
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
             cursor: pointer;
         }
         
-        /* 内容区不再需要绝对定位 */
-        .content {
-            /* 移除了之前的 position, top, left, width, height, overflow 等 */
-            /* 这些样式已移至 .popup */
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+        
+        .config-content {
+            margin-top: 20px;
+        }
+        
+        pre {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+            max-height: 400px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .right-box {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-
-    <h1>主页面内容</h1>
-    <p>这是主页面的一些内容...</p>
-    <button onclick="openPopup()">打开弹窗</button>
-
-    <!-- 模糊背景和遮罩层 -->
-    <div id="overlay" class="overlay"></div>
-
-    <!-- 弹窗 -->
-    <div id="myPopup" class="popup">
-        <div class="content">
-            <div class="popup-header">
-                <h3>弹窗标题</h3>
-            </div>
-            <div class="popup-body">
-                <p>这里是弹窗的内容...</p>
-            </div>
-            <div class="popup-footer">
-                <button onclick="closePopup()">关闭</button>
+    <div class="container">
+        <div class="right-box">
+            <h1>sing-box配置转换器</h1>
+            <form id="temp-json-form" method="POST" action="/edit_temp_json">
+                <textarea name="temp_json_data" rows="10" cols="40">{{ temp_json_data | default('') }}</textarea>
+                <br>
+                <input type="submit" value="保存">
+            </form>
+            <div class="form-container" style="display: flex; align-items: center;">
+                <form method="POST" action="/generate_config" style="display: flex; align-items: center;">
+                    <select name="template_index">
+                        {% for option in template_options %}
+                        <option value="{{ loop.index - 1 }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="选择并生成">
+                </form>
             </div>
         </div>
+        <div class="config-content">
+            <pre id="config-text"></pre>
+        </div>
     </div>
-
     <script>
-        function openPopup() {
-            document.getElementById("overlay").style.display = "block";
-            document.getElementById("myPopup").style.display = "block";
-            
-            // 可选：防止背景滚动
-            document.body.style.overflow = 'hidden';
+        // 获取随机背景图片并设置为背景
+        async function setBackground() {
+            try {
+                // 设置背景图片
+                document.body.style.backgroundImage = `url('https://api.bimg.cc/random')`;
+            } catch (error) {
+                console.error('无法获取背景图片:', error);
+                // 如果获取失败，使用默认背景
+                document.body.style.backgroundColor = '#f2f2f2';
+            }
         }
 
-        function closePopup() {
-            document.getElementById("overlay").style.display = "none";
-            document.getElementById("myPopup").style.display = "none";
-            
-            // 恢复背景滚动
-            document.body.style.overflow = '';
-        }
+        // 页面加载完成后设置背景
+        window.onload = setBackground;
+
+        const initialTempJsonData = '{"subscribes":[{"url":"URL","tag":"tag_1","enabled":true,"emoji":1,"subgroup":"","prefix":"","User-Agent":"v2rayng"},{"url":"URL","tag":"tag_2","enabled":false,"emoji":0,"subgroup":"命名/named","prefix":"❤️","User-Agent":"clashmeta"}],"auto_set_outbounds_dns":{"proxy":"","direct":""},"save_config_path":"./config.json","auto_backup":false,"exclude_protocol":"ssr","config_template":"","Only-nodes":false}';
+        let tempJsonData = initialTempJsonData;
+        document.querySelector('#temp-json-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData,
+            });
+            if (response.ok) {
+                const responseData = await response.text();
+                const configContent = document.querySelector('#config-text');
+                configContent.textContent = responseData
+            }
+        });
     </script>
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
