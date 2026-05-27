@@ -15,18 +15,24 @@
             min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f2f2f2 url('https://bing.img.run/1920x1080.php') center/cover no-repeat;
             position: relative;
+            /* 页面背景图，用于模糊 */
+            background: #f2f2f2 url('https://bing.img.run/1920x1080.php') center/cover no-repeat fixed; 
         }
-        /* 模糊背景遮罩 */
+        
+        /* 模糊背景遮罩 - 确保覆盖全屏 */
         body::before {
             content: '';
-            position: absolute;
-            inset: 0;
-            background: inherit;
-            filter: blur(50px);
+            position: fixed; /* 关键：固定定位，覆盖整个视口 */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: inherit; /* 继承 body 的背景图 */
+            filter: blur(25px); /* 降低模糊程度，原为 50px */
             z-index: 1;
         }
+        
         .container {
             display: flex;
             gap: 20px;
@@ -75,7 +81,7 @@
             white-space: pre-wrap;
             margin: 0;
         }
-        .flashes { list-style: none; padding: 0; color: #ff3b30; z-index: 2; }
+        .flashes { list-style: none; padding: 0; color: #ff3b30; z-index: 2; position: relative; }
 
         @media (max-width: 768px) {
             .container { flex-direction: column; }
