@@ -182,6 +182,17 @@
       },
       {
         "rule_set": [
+          "Personal-Direct",
+          "geosite-bilibili",
+          "geoip-cn",
+          "geosite-cn",
+          "geosite-alibaba",
+          "geosite-jd"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
           "geosite-youtube",
           "geoip-google",
           "geosite-google",
@@ -212,16 +223,6 @@
       },
       {
         "rule_set": [
-          "geosite-bilibili",
-          "geoip-cn",
-          "geosite-cn",
-          "geosite-alibaba",
-          "geosite-jd"		  
-		],
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
           "geoip-apple",
           "geosite-apple",
           "geosite-amazon"
@@ -243,10 +244,18 @@
         "download_detour": "direct"
       },
       {
+        "tag": "Personal-Direct",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/Maritnbk/Singbox-Rules/refs/heads/main/rule/Personal-Direct.srs",
+        "update_interval": "24h",
+        "download_detour": "direct"
+      },
+      {
         "tag": "AWAvenue-Ads",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/Maritnbk/Ads-Rule-Singbox/refs/heads/main/rule/AWAvenue-Ads-Rule-Singbox.srs",
+        "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/Maritnbk/Singbox-Rules/refs/heads/main/rule/AWAvenue-Ads-Rule-Singbox.srs",
         "update_interval": "24h",
         "download_detour": "direct"
       },
