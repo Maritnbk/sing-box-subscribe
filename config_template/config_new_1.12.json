@@ -170,6 +170,7 @@
         "domain": [
           "board.zash.run.place",
           "clash.razord.top",
+          "hzjx.work",
           "yacd.metacubex.one",
           "yacd.haishan.me",
           "d.metacubex.one"
@@ -182,7 +183,6 @@
       },
       {
         "rule_set": [
-          "Personal-Direct",
           "geosite-bilibili",
           "geoip-cn",
           "geosite-cn",
@@ -240,14 +240,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs",
-        "update_interval": "24h",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "Personal-Direct",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://github.bzmtk.cloudns.biz/https://raw.githubusercontent.com/Maritnbk/Singbox-Rules/refs/heads/main/rule/Personal-Direct.srs",
         "update_interval": "24h",
         "download_detour": "direct"
       },
