@@ -1,5 +1,5 @@
 import tool,json,re
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, unquote
 def parse(data):
     info = data[8:]
     if not info or info.isspace():
@@ -15,8 +15,12 @@ def parse(data):
                 _path = tool.b64Decode(server_info.path).decode('utf-8').split("@")
             except:
                 _path = (server_info.path).split("@")
+            if netquery.get('remarks'):
+                remarks = netquery['remarks']
+            else:
+                remarks = server_info.fragment
             node = {
-                'tag': netquery.get('remarks', tool.genName()+'_vmess'),
+                'tag': unquote(remarks) or tool.genName()+'_vmess',
                 'type': 'vmess',
                 'server': _path[1].split(":")[0],
                 'server_port': int(_path[1].split(":")[1]),
