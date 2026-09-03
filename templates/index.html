@@ -7,6 +7,8 @@
     <title>sing-box配置转换</title>
     <style>
         * { box-sizing: border-box; }
+        html, body { height: 100%; }
+        html { overflow-x: hidden; }
         body {
             display: flex;
             flex-direction: column;
@@ -16,26 +18,30 @@
             margin: 0;
             font-family: Arial, sans-serif;
             position: relative;
+            overflow-x: hidden;
             /* 页面背景图，用于模糊 */
-            background: #f2f2f2 url('https://uapis.cn/api/v1/image/bing-daily?random=true&resolution=1080') center/cover no-repeat fixed; 
+            background: #f2f2f2 url('https://uapis.cn/api/v1/image/bing-daily?random=true&resolution=1080') center/cover no-repeat fixed;
         }
-        
-        /* 模糊背景遮罩 - 确保覆盖全屏 */
+
+        /* 模糊背景遮罩 - 全屏修正版 */
         body::before {
             content: '';
-            position: fixed; /* 关键：固定定位，覆盖整个视口 */
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: inherit; /* 继承 body 的背景图 */
-            filter: blur(25px); /* 降低模糊程度，原为 50px */
+            position: fixed;
+            /* 关键修正1：向外溢出一个 blur 半径，抵消 blur 边缘羽化变透明的问题 */
+            /* 原来 top:0/left:0/width:100vw/height:100vh 会导致四周一圈露底，看起来不满屏 */
+            inset: -30px;
+            /* 关键修正2：不用 background:inherit，直接写死同一张图，避免 cover/fixed 继承对不齐 */
+            background: #f2f2f2 url('https://uapis.cn/api/v1/image/bing-daily?random=true&resolution=1080') center/cover no-repeat fixed;
+            filter: blur(25px);
             z-index: 1;
+            /* 关键修正3：避免遮挡点击，且 fixed 超出视口部分不产生滚动条 */
+            pointer-events: none;
         }
-        
+
         .container {
             display: flex;
             gap: 20px;
+            align-items: flex-start;
             z-index: 2;
             background: rgba(255, 255, 255, 0.75);
             padding: 25px;
@@ -44,8 +50,15 @@
             max-width: 90%;
             width: 800px;
         }
-        .right-box, .config-content { flex: 1; width: 100%; }
-        h1 { margin-top: 0; font-size: 1.5rem; color: #333; }
+        .right-box { flex: 2; min-width: 0; display: flex; flex-direction: column; }
+        .config-content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+        .right-box h1, .config-content .pre-spacer {
+            margin: 0 0 12px;
+            font-size: 1.5rem;
+            line-height: 1.3;
+            color: #333;
+        }
+        .config-content .pre-spacer { visibility: hidden; user-select: none; }
         textarea {
             width: 100%;
             height: 300px;
@@ -53,11 +66,11 @@
             padding: 10px;
             border-radius: 6px;
             border: 1px solid #ccc;
-            resize: vertical;
+            resize: none;
         }
         select, input[type="submit"] {
             padding: 8px 14px;
-            margin-top: 10px;
+            margin: 0;
             border-radius: 4px;
             border: 1px solid #ccc;
         }
@@ -67,24 +80,33 @@
             border: none;
             cursor: pointer;
             transition: background 0.2s;
+            white-space: nowrap;
         }
         input[type="submit"]:hover { background-color: #45a049; }
-        .form-inline { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+        #temp-json-form { display: flex; flex-direction: column; }
+        .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 10px; width: 100%; flex-wrap: nowrap; }
+        .btn-row select { flex: 1; min-width: 0; }
+        .btn-row input[type="submit"] { flex: none; }
+        .form-inline { display: flex; gap: 10px; align-items: center; margin: 0; }
         pre {
             background-color: rgba(0, 0, 0, 0.85);
             color: #00ff00;
             padding: 15px;
             border-radius: 6px;
             overflow: auto;
-            height: 350px;
+            height: 300px;
             font-family: monospace;
             white-space: pre-wrap;
             margin: 0;
+            width: 100%;
         }
         .flashes { list-style: none; padding: 0; color: #ff3b30; z-index: 2; position: relative; }
 
         @media (max-width: 768px) {
             .container { flex-direction: column; }
+            .right-box, .config-content { width: 100%; flex: none; }
+            .config-content .pre-spacer { display: none; }
+            .btn-row { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -103,20 +125,23 @@
             <h1>sing-box 配置转换器</h1>
             <form id="temp-json-form" method="POST" action="/edit_temp_json">
                 <textarea name="temp_json_data" placeholder="请输入 JSON 配置...">{{ temp_json_data | default('') }}</textarea>
-                <input type="submit" value="保存配置">
             </form>
-            
-            <form method="POST" action="/generate_config" class="form-inline">
-                <select name="template_index">
+
+            <form id="generate-form" method="POST" action="/generate_config" hidden></form>
+
+            <div class="btn-row">
+                <select name="template_index" form="generate-form">
                     {% for option in template_options %}
                     <option value="{{ loop.index - 1 }}">{{ option }}</option>
                     {% endfor %}
                 </select>
-                <input type="submit" value="选择并生成">
-            </form>
+                <input type="submit" value="保存配置" form="temp-json-form">
+                <input type="submit" value="选择并生成" form="generate-form">
+            </div>
         </div>
-        
+
         <div class="config-content">
+            <div class="pre-spacer" aria-hidden="true">&nbsp;</div>
             <pre id="config-text">生成的结果将显示在这里...</pre>
         </div>
     </div>
