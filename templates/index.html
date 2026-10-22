@@ -68,6 +68,7 @@
             /* ── 圆角 ───────────────────────────────────────────── */
             --radius-input: 6px;
             --radius-card:  12px;
+            --radius-code:  10px;
             --radius-pill:  999px;
 
             /* ── 动效 ───────────────────────────────────────────── */
@@ -184,9 +185,10 @@
         }
 
         /* ── 双栏工作台：发丝分隔，不做卡片套卡片 ───────────────── */
+        /* 左（配置 JSON）: 右（生成结果）= 3 : 4，右侧更宽以容纳配置输出 */
         .workbench {
             display: grid;
-            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            grid-template-columns: minmax(0, 3fr) minmax(0, 4fr);
             gap: 0;
             margin-top: var(--space-md);
         }
@@ -352,25 +354,57 @@
         .btn[hidden] { display: none; }
 
         /* ── 输出区 ─────────────────────────────────────────────── */
-        #config-text {
+        /* 外层只负责圆角和裁剪：overflow:hidden 会把滚动条那条直角边一起裁掉。
+           若让 <pre> 自己既滚动又画圆角，滚动条会盖住右侧两个圆角，看起来是直角。 */
+        .code-frame {
+            position: relative;
             flex: 1;
             min-height: 22rem;
             max-height: 62dvh;
+            border-radius: var(--radius-code);
+            overflow: hidden;
+            background: var(--color-code-bg);
+        }
+
+        #config-text {
+            position: absolute;
+            inset: 0;
             margin: 0;
             padding: var(--space-sm);
             font-family: var(--font-mono);
             font-size: var(--text-sm);
             line-height: 1.6;
             color: var(--color-code-ink);
-            background: var(--color-code-bg);
-            border-radius: var(--radius-input);
+            background: transparent;
+            border-radius: inherit;
             white-space: pre-wrap;
             overflow: auto;
+            /* 细滚动条，减少它对深色块的视觉干扰 */
+            scrollbar-width: thin;
+            scrollbar-color: oklch(100% 0 0 / 0.28) transparent;
         }
 
+        #config-text::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        #config-text::-webkit-scrollbar-track { background: transparent; }
+        #config-text::-webkit-scrollbar-thumb {
+            background: oklch(100% 0 0 / 0.28);
+            border: 3px solid transparent;
+            border-radius: var(--radius-pill);
+            background-clip: content-box;
+        }
+        #config-text::-webkit-scrollbar-thumb:hover {
+            background: oklch(100% 0 0 / 0.45);
+            background-clip: content-box;
+        }
+        #config-text::-webkit-scrollbar-corner { background: transparent; }
+
+        /* 焦点环画在内侧：贴边容器上 outline-offset 为正会被 overflow 裁掉 */
         #config-text:focus-visible {
             outline: 2px solid var(--color-focus);
-            outline-offset: 2px;
+            outline-offset: -2px;
         }
 
         /* ── 状态条 ─────────────────────────────────────────────── */
@@ -439,7 +473,7 @@
             }
 
             textarea,
-            #config-text { min-height: 16rem; }
+            .code-frame { min-height: 16rem; }
         }
 
         @media (max-width: 420px) {
@@ -527,7 +561,9 @@
                         </div>
                     </form>
 
-                    <pre id="config-text" role="region" aria-label="生成结果" tabindex="0">生成的结果将显示在这里…</pre>
+                    <div class="code-frame">
+                        <pre id="config-text" role="region" aria-label="生成结果" tabindex="0">生成的结果将显示在这里…</pre>
+                    </div>
                 </section>
 
             </main>
