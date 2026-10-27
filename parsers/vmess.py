@@ -1,12 +1,39 @@
 import tool,json,re
 from urllib.parse import urlparse, parse_qs, unquote
+
+
+def _decode_bytes(raw: bytes) -> str:
+    """vmess 载荷不一定是 UTF-8，老面板常用 GBK/GB18030"""
+    for enc in ('utf-8', 'gb18030'):
+        try:
+            return raw.decode(enc)
+        except UnicodeDecodeError:
+            continue
+    return raw.decode('utf-8', 'replace')
+
+
+def _unquote_name(raw: str) -> str:
+    """节点名的百分号转义同样可能是 GBK，先按 UTF-8 严格解，失败再退回 GB18030"""
+    if not raw:
+        return ''
+    for enc in ('utf-8', 'gb18030'):
+        try:
+            return unquote(raw, encoding=enc, errors='strict')
+        except UnicodeDecodeError:
+            continue
+    return unquote(raw, errors='replace')
+
+
 def parse(data):
-    info = data[8:].rsplit("#", 1)[0]
+    info = data[8:]
     if not info or info.isspace():
         return None
+    # 节点名常常只写在 #fragment 里：解析内容前必须把 # 之后切掉，
+    # 但 fragment 要单独留下来，供 tag 兜底使用。
+    payload, _, fragment = info.partition("#")
     try:
-        if info.find('?') > -1: #fuck奇葩的URI格式
-            server_info = urlparse(info)
+        if payload.find('?') > -1: #fuck奇葩的URI格式
+            server_info = urlparse(payload)
             netquery = dict(
                 (k, v if len(v) > 1 else v[0])
                 for k, v in parse_qs(server_info.query).items()
@@ -18,9 +45,9 @@ def parse(data):
             if netquery.get('remarks'):
                 remarks = netquery['remarks']
             else:
-                remarks = server_info.fragment
+                remarks = fragment   # 不能用 server_info.fragment：fragment 已被上面切掉
             node = {
-                'tag': unquote(remarks) or tool.genName()+'_vmess',
+                'tag': _unquote_name(remarks) or tool.genName()+'_vmess',
                 'type': 'vmess',
                 'server': _path[1].split(":")[0],
                 'server_port': int(_path[1].split(":")[1]),
@@ -64,7 +91,7 @@ def parse(data):
                     pass  # JSON 解码失败时忽略异常
             return node
         else:
-            proxy_str = tool.b64Decode(info).decode('utf-8')
+            proxy_str = _decode_bytes(tool.b64Decode(payload))
     except:
         print(info)
         return None
@@ -74,7 +101,7 @@ def parse(data):
         return None
     content = item.get('ps').strip() if item.get('ps') else tool.genName()+'_vmess'
     node = {
-        'tag': unquote(data[8:].rsplit("#", 1)[1]) if '#' in data else content,
+        'tag': _unquote_name(fragment) or content,
         'type': 'vmess',
         'server': item.get('add'),
         'server_port': int(item.get('port')),
